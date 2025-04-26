@@ -1,8 +1,9 @@
-#include "Predict.hpp"
+#include "LinearRegressionPredict.hpp"
+#define MODEL "model.mo"
 
 int main(int argc, char const *argv[])
 {
-	Predict p;
+	LinearRegressionPredict p(MODEL);
 	if (p.loadModel())
 		return (1);
 	p.promptAndPredict();

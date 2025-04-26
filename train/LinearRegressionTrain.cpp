@@ -1,37 +1,39 @@
-#include "Train.hpp"
+#include "LinearRegressionTrain.hpp"
 
-Train::Train() : learningRate(0.01), bias(0), weight(0), step(10000) // bigger learning rate, more steps
+LinearRegressionTrain::LinearRegressionTrain(double learningRate, double step):
+learningRate(learningRate),
+step(step),
+bias(0),
+weight(0)
 {
 }
 
-Train::~Train()
+LinearRegressionTrain::~LinearRegressionTrain()
 {
 }
 
-void Train::saveResult()
+int LinearRegressionTrain::saveModel()
 {
-    std::ofstream file("model.mo"); // open file for writing
+    std::ofstream file("model.mo");
     if (!file)
     {
         std::cerr << "can't open model.mo" << std::endl;
-        return;
+        return (1);
     }
-    // Save parameters to file
     file << bias << " " << weight << " " << minMileage << " " << maxMileage << "\n";
-
-    // Optionally print them for user
     std::cout << "bias: " << bias << std::endl;
     std::cout << "weight: " << weight << std::endl;
     std::cout << "minMileage: " << minMileage << std::endl;
     std::cout << "maxMileage: " << maxMileage << std::endl;
+	return (0);
 }
 
-double Train::estimatePrice(double mileage) // mileage is normalized
+double LinearRegressionTrain::estimatePrice(double mileage) // mileage is normalized
 {
 	return (bias + weight * mileage);
 }
 
-double Train::getLossBias()
+double LinearRegressionTrain::getLossBias()
 {
 	double averageError = 0;
 	for (auto it = data.begin(); it != data.end(); ++it)
@@ -42,7 +44,7 @@ double Train::getLossBias()
 	return (averageError / data.size());
 }
 
-double Train::getLossWeight()
+double LinearRegressionTrain::getLossWeight()
 {
 	double averageError = 0;
 	for (auto it = data.begin(); it != data.end(); ++it)
@@ -53,7 +55,7 @@ double Train::getLossWeight()
 	return (averageError / data.size());
 }
 
-void Train::linearRegression()
+void LinearRegressionTrain::train()
 {
     while (step > 0)
     {
@@ -67,7 +69,7 @@ void Train::linearRegression()
     }
 }
 
-void Train::normalize()
+void LinearRegressionTrain::normalize()
 {
 	std::sort(data.begin(), data.end());
     minMileage = data.at(0).first;
@@ -79,15 +81,13 @@ void Train::normalize()
     }
 }
 
-int Train::loadDataSet()
+int LinearRegressionTrain::loadDataSet()
 {
 	std::ifstream file("data.csv");
 	if (!file)
 		return (std::cerr << "can't open data.csv" << std::endl, 1);
-
 	std::string line;
-	std::getline(file, line); // skip header
-
+	std::getline(file, line);
 	while (std::getline(file, line))
 	{
 		std::stringstream ss(line);
@@ -100,10 +100,7 @@ int Train::loadDataSet()
 			data.emplace_back(mileage, price);
 		}
 		else
-		{
-			std::cerr << "Malformed line: " << line << std::endl;
-			return (1);
-		}
+			return (std::cerr << "Malformed line: " << line << std::endl, 1);
 	}
 	return (0);
 }

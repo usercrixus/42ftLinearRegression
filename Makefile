@@ -1,9 +1,9 @@
 OBJ1 = \
 	train/main.o \
-	train/Train.o 
+	train/LinearRegressionTrain.o 
 OBJ2 = \
 	predict/main.o \
-	predict/Predict.o
+	predict/LinearRegressionPredict.o
 FLAG = -Werror -Wextra -Wall
 
 train.out: $(OBJ1)
@@ -16,6 +16,6 @@ predict.out: $(OBJ2)
 	c++ $(FLAG) -c $< -o $@
 
 clean:
-	rm -f $(OBJ1) $(OBJ2) train.out predict.out
+	rm -f $(OBJ1) $(OBJ2) train.out predict.out model.mo
 
 .PHONY: clean

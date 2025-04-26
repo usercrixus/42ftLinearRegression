@@ -3,17 +3,18 @@
 #include <sstream>
 #include <string>
 
-class Predict
+class LinearRegressionPredict
 {
 private:
+	std::string model;
 	double weight;
 	double bias;
 	double minKey;
 	double maxKey;
 
 public:
-	Predict();
-	~Predict();
+	LinearRegressionPredict(std::string model);
+	~LinearRegressionPredict();
 
     int promptAndPredict();
 

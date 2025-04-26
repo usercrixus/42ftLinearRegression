@@ -1,13 +1,14 @@
-#include "Predict.hpp"
+#include "LinearRegressionPredict.hpp"
 
-Predict::Predict()
+LinearRegressionPredict::LinearRegressionPredict(std::string model):
+model(model)
 {
 }
 
-Predict::~Predict()
+LinearRegressionPredict::~LinearRegressionPredict()
 {
 }
-int Predict::promptAndPredict()
+int LinearRegressionPredict::promptAndPredict()
 {
     double mileageInput;
     std::cout << "Enter the mileage: ";
@@ -23,28 +24,25 @@ int Predict::promptAndPredict()
 }
 
 
-double Predict::estimatePrice(double mileage) // mileage is normalized
+double LinearRegressionPredict::estimatePrice(double mileage) // mileage is normalized
 {
 	return (bias + weight * mileage);
 }
 
-double Predict::normalize(double x)
+double LinearRegressionPredict::normalize(double x)
 {
     return 2.0 * (x - minKey) / (maxKey - minKey) - 1.0;
 }
-int Predict::loadModel()
+int LinearRegressionPredict::loadModel()
 {
-    std::ifstream file("model.mo");
+    std::ifstream file(model);
     if (!file)
-        return (std::cerr << "can't open model.mo" << std::endl, 1);
-
+        return (std::cerr << "can't open " <<  model << std::endl, 1);
     file >> bias >> weight >> minKey >> maxKey;
-
     if (file.fail())
     {
-        std::cerr << "Malformed model.mo" << std::endl;
+        std::cerr << "Malformed " << model << std::endl;
         return (1);
     }
-
     return (0);
 }
