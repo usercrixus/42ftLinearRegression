@@ -16,7 +16,7 @@ private:
     double maxX;
     double minX;
 
-    double estimateY(double mileage);
+    double estimateY(double x);
     double getLossBias();
     double getLossWeight();
 
