@@ -6,19 +6,18 @@
 class LinearRegressionPredict
 {
 private:
-	std::string model;
 	double weight;
 	double bias;
-	double minKey;
-	double maxKey;
+	double minX;
+	double maxX;
 
 public:
-	LinearRegressionPredict(std::string model);
+	LinearRegressionPredict();
 	~LinearRegressionPredict();
 
     int promptAndPredict();
 
-    double estimatePrice(double mileage);
+    double estimateY(double x);
     double normalize(double x);
-    int loadModel();
+    int loadModel(std::string modelPath);
 };

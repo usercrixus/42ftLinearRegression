@@ -8,24 +8,24 @@
 class LinearRegressionTrain
 {
 private:
-    std::vector<std::pair<int, int>> data;
+    std::vector<std::pair<double, double>> data;
     double learningRate;
     int step;
     double bias;
     double weight;
-    double maxMileage;
-    double minMileage;
+    double maxX;
+    double minX;
 
-    double estimatePrice(double mileage);
+    double estimateY(double mileage);
     double getLossBias();
     double getLossWeight();
 
 public:
-	LinearRegressionTrain(double learningRate, double step);
+	LinearRegressionTrain(double learningRate, int step);
 	~LinearRegressionTrain();
 
-    int loadDataSet();
+    bool loadDataSet(char *path);
     void normalize();
     void train();
-    int saveModel();
+    bool saveModel(char *path);
 };

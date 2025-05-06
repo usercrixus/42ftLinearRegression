@@ -1,7 +1,6 @@
 #include "LinearRegressionPredict.hpp"
 
-LinearRegressionPredict::LinearRegressionPredict(std::string model):
-model(model)
+LinearRegressionPredict::LinearRegressionPredict()
 {
 }
 
@@ -10,38 +9,38 @@ LinearRegressionPredict::~LinearRegressionPredict()
 }
 int LinearRegressionPredict::promptAndPredict()
 {
-    double mileageInput;
-    std::cout << "Enter the mileage: ";
-    std::cin >> mileageInput;
+    double x;
+    std::cout << "Enter x: ";
+    std::cin >> x;
     if (std::cin.fail())
     {
         std::cerr << "Invalid input!" << std::endl;
         return (1);
     }
-    double price = estimatePrice(normalize(mileageInput));
-    std::cout << "Estimated price: " << price << std::endl;
+    double y = estimateY(normalize(x));
+    std::cout << "Estimated y: " << y << std::endl;
 	return (0);
 }
 
 
-double LinearRegressionPredict::estimatePrice(double mileage) // mileage is normalized
+double LinearRegressionPredict::estimateY(double x)
 {
-	return (bias + weight * mileage);
+	return (bias + weight * x);
 }
 
 double LinearRegressionPredict::normalize(double x)
 {
-    return 2.0 * (x - minKey) / (maxKey - minKey) - 1.0;
+    return 2.0 * (x - minX) / (maxX - minX) - 1.0;
 }
-int LinearRegressionPredict::loadModel()
+int LinearRegressionPredict::loadModel(std::string modelPath)
 {
-    std::ifstream file(model);
+    std::ifstream file(modelPath);
     if (!file)
-        return (std::cerr << "can't open " <<  model << std::endl, 1);
-    file >> bias >> weight >> minKey >> maxKey;
+        return (std::cerr << "can't open " <<  modelPath << std::endl, 1);
+    file >> bias >> weight >> minX >> maxX;
     if (file.fail())
     {
-        std::cerr << "Malformed " << model << std::endl;
+        std::cerr << "Malformed " << modelPath << std::endl;
         return (1);
     }
     return (0);
