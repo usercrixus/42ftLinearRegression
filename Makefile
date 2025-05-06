@@ -21,6 +21,6 @@ clean:
 	rm -f $(OBJ1) $(OBJ2)
 
 fclean: clean
-	rm -f train.out predict.out model.mo
+	rm -f train.out predict.out
 
 .PHONY: clean fclean
