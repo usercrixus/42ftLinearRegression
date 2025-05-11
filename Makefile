@@ -18,10 +18,8 @@ predict.out: $(OBJ2)
 	c++ $(FLAG) -c $< -o $@
 
 init:
-	python3 -m venv venv && \
-	source venv/bin/activate && \
-	pip install --upgrade pip && \
-	pip install pandas matplotlib
+	python3 -m venv venv && . venv/bin/activate && pip install --upgrade pip pandas matplotlib
+
 
 clean:
 	rm -f $(OBJ1) $(OBJ2)
