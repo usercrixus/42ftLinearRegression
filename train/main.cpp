@@ -1,5 +1,8 @@
 #include "LinearRegressionTrain.hpp"
-
+#include <cstdlib>
+#define MODEL "model.mo"
+#define DATA  "data.csv"
+#define PYTHON_SCRIPT "plot_model.py"
 /**
  * 
  * Should be call like ./train.out  "data.csv" "model.mo" "0.1" "1000"
@@ -22,5 +25,14 @@ int main(int argc, char **argv)
 	trainner.train();
 	if (!trainner.saveModel(argv[2]))
 		return (1);
+	std::string cmd = "python3 ";
+	cmd += PYTHON_SCRIPT;
+	cmd += " ";
+	cmd += argv[1];
+	cmd += " ";
+	cmd += argv[2];
+	cmd += " 2>/dev/null";
+	if (system(cmd.c_str()) < 0)
+		return (std::cout << "Error during the display of the graph" << std::endl, 1);
 	return (0);
 }

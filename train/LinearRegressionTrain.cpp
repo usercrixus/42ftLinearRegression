@@ -18,14 +18,14 @@ bool LinearRegressionTrain::saveModel(char *path)
     if (!file)
     {
         std::cerr << "can't open model.mo" << std::endl;
-        return (1);
+        return (false);
     }
     file << bias << " " << weight << " " << minX << " " << maxX << "\n";
     std::cout << "bias: " << bias << std::endl;
     std::cout << "weight: " << weight << std::endl;
     std::cout << "minX: " << minX << std::endl;
     std::cout << "maxX: " << maxX << std::endl;
-	return (0);
+	return (true);
 }
 
 double LinearRegressionTrain::estimateY(double x)

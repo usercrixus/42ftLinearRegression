@@ -17,6 +17,12 @@ predict.out: $(OBJ2)
 %.o: %.c 
 	c++ $(FLAG) -c $< -o $@
 
+init:
+	python3 -m venv venv && \
+	source venv/bin/activate && \
+	pip install --upgrade pip && \
+	pip install pandas matplotlib
+
 clean:
 	rm -f $(OBJ1) $(OBJ2)
 

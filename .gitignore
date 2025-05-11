@@ -1,0 +1,5 @@
+.out
+source/
+venv/
+*.csv
+*.pdf
