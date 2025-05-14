@@ -55,6 +55,18 @@ def plot(bias, weight, minX, maxX, data):
     plt.savefig("plot.png")
     print("✅ Plot saved as plot.png")
 
+def compute_mae(data, bias, weight, minX, maxX):
+    """
+    Calcule l'erreur moyenne absolue (MAE) sur l'ensemble des points.
+    """
+    errors = []
+    for x, y in data:
+        y_pred = estimate_y(x, bias, weight, minX, maxX)
+        errors.append(abs(y_pred - y))
+    if not errors:
+        return None
+    return sum(errors) / len(errors)
+
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python3 plot_model.py data.csv model.mo")
@@ -65,5 +77,11 @@ if __name__ == "__main__":
 
     data = load_csv_data(data_file)
     bias, weight, minX, maxX = load_model(model_file)
+
+    mae = compute_mae(data, bias, weight, minX, maxX)
+    if mae is not None:
+        print(f"📊 Erreur moyenne absolue (MAE) : {mae:.4f}")
+    else:
+        print("⚠️ Aucune donnée pour calculer la MAE.")
 
     plot(bias, weight, minX, maxX, data)
