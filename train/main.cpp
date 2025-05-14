@@ -21,7 +21,8 @@ int main(int argc, char **argv)
 	LinearRegressionTrain trainner(atof(argv[3]), atoi(argv[4]));
 	if (!trainner.loadDataSet(argv[1]))
 		return (1);
-	trainner.normalize();
+	if (!trainner.normalize())
+		return (1);
 	trainner.train();
 	if (!trainner.saveModel(argv[2]))
 		return (1);

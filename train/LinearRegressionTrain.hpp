@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 
 class LinearRegressionTrain
 {
@@ -25,7 +26,7 @@ public:
 	~LinearRegressionTrain();
 
     bool loadDataSet(char *path);
-    void normalize();
-    void train();
+    bool normalize();
+    bool train();
     bool saveModel(char *path);
 };

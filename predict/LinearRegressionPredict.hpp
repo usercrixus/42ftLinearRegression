@@ -15,9 +15,8 @@ public:
 	LinearRegressionPredict();
 	~LinearRegressionPredict();
 
-    int promptAndPredict();
-
+    bool promptAndPredict();
     double estimateY(double x);
     double normalize(double x);
-    int loadModel(std::string modelPath);
+    bool loadModel(std::string modelPath);
 };

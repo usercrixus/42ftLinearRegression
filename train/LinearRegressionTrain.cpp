@@ -4,7 +4,9 @@ LinearRegressionTrain::LinearRegressionTrain(double learningRate, int step):
 learningRate(learningRate),
 step(step),
 bias(0),
-weight(0)
+weight(0),
+maxX(0),
+minX(0)
 {
 }
 
@@ -47,7 +49,7 @@ double LinearRegressionTrain::getLossBias()
 double LinearRegressionTrain::getLossWeight()
 {
 	double averageError = 0;
-	for (auto it = data.begin(); it != data.end(); ++it)
+	for (std::vector<std::pair<double, double>>::iterator it = data.begin(); it != data.end(); ++it)
 	{
 		double diff = estimateY(it->first) - it->second;
 		averageError += diff * it->first;
@@ -55,30 +57,33 @@ double LinearRegressionTrain::getLossWeight()
 	return (averageError / data.size());
 }
 
-void LinearRegressionTrain::train()
+bool LinearRegressionTrain::train()
 {
+	if (data.size() == 0)
+		return (std::cerr <<"Train error: data.size() == 0", false);
+	double lossBias;
+	double lossWeight;
     while (step > 0)
     {
-        double lossBias = getLossBias();
-        double lossWeight = getLossWeight();
-
+        lossBias = getLossBias();
+        lossWeight = getLossWeight();
         bias -= learningRate * lossBias;
         weight -= learningRate * lossWeight;
-
         step--;
     }
+	return (true);
 }
 
-void LinearRegressionTrain::normalize()
+bool LinearRegressionTrain::normalize()
 {
 	std::sort(data.begin(), data.end());
     minX = data.at(0).first;
     maxX = data.at(data.size() - 1).first;
-
-    for (auto& p : data)
-    {
+	if ((maxX - minX) == 0)
+		return (std::cerr <<"Normalisation: Division by 0", false);
+	for (std::pair<double, double> &p : data)
         p.first = 2.0 * (p.first - minX) / (maxX - minX) - 1.0;
-    }
+	return (true);
 }
 
 bool LinearRegressionTrain::loadDataSet(char *path)
@@ -92,7 +97,6 @@ bool LinearRegressionTrain::loadDataSet(char *path)
 	{
 		std::stringstream ss(line);
 		std::string key, value;
-
 		if (std::getline(ss, key, ',') && std::getline(ss, value))
 		{
 			double x = std::stoi(key);
