@@ -48,12 +48,7 @@ def plot(bias, weight, minX, maxX, data):
     try:
         plt.show()
     except:
-        print("⚠️ GUI not available. Saving as plot.png")
-        plt.savefig("plot.png")
-
-    # Always save to file, even if show works
-    plt.savefig("plot.png")
-    print("✅ Plot saved as plot.png")
+        print("⚠️ GUI not available")
 
 def compute_mae(data, bias, weight, minX, maxX):
     """
