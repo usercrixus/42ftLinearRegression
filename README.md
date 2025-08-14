@@ -58,7 +58,7 @@ This will train the model based on the data in the given CSV file and save the r
 Directly build and execute.
 
 ```bash
-make make train
+make train
 make predict
 ```
 
@@ -67,8 +67,8 @@ make predict
 Work and any csv on the form:
 
 ```
-key, value
-x, y
+key,value
+x,y
 ```
 
-where x and y are valid numbers. For more information, see data.csv file.
+where x and y are valid numbers. For more informations, see data.csv file.
