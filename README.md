@@ -6,16 +6,16 @@ This project implements a basic linear regression model in C++ with separate tra
 ## Project Structure
 
 ```
-ft_linear_regression/
-├── Makefile
-├── train/
-│   ├── main.cpp
-│   ├── LinearRegressionTrain.cpp
-│   └── LinearRegressionTrain.hpp
-├── predict/
-│   ├── main.cpp
-│   ├── LinearRegressionPredict.cpp
-│   └── LinearRegressionPredict.hpp
+data.csv  Makefile  README.md  srcs  venv
+
+srcs:
+plot_model.py  predict  train
+
+srcs/predict:
+LinearRegressionPredict.cpp  LinearRegressionPredict.hpp  main.cpp
+
+srcs/train:
+LinearRegressionTrain.cpp  LinearRegressionTrain.hpp  main.cpp
 ```
 
 ## Build Instructions
@@ -23,12 +23,13 @@ ft_linear_regression/
 You can build both the training and prediction binaries using the provided Makefile:
 
 ```bash
-make
+make train.out
+make predict.out
 ```
 
 This will generate two executables:
-- `train` – for training a linear regression model
-- `predict` – for making predictions using the trained model
+- `train.out` – for training a linear regression model
+- `predict.out` – for making predictions using the trained model
 
 To clean up compiled files:
 
@@ -50,3 +51,24 @@ This will train the model based on the data in the given CSV file and save the r
 
 ```bash
 ./predict.out <model path>
+```
+
+### Helper
+
+Directly build and execute.
+
+```bash
+make make train
+make predict
+```
+
+### DATA
+
+Work and any csv on the form:
+
+```
+key, value
+x, y
+```
+
+where x and y are valid numbers. For more information, see data.csv file.

@@ -2,7 +2,7 @@
 #include <cstdlib>
 #define MODEL "model.mo"
 #define DATA  "data.csv"
-#define PYTHON_SCRIPT "plot_model.py"
+#define PYTHON_SCRIPT "srcs/plot_model.py"
 /**
  * 
  * Should be call like ./train.out  "data.csv" "model.mo" "0.1" "1000"
